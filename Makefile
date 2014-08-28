@@ -8,22 +8,25 @@ LDLIBS  = -lwiringPi
 
 .PHONY: all clean
 
-all: lwsend lwrecv
-
-lwrecv: lwrecv.o LightwaveRF.o
-	$(CC) -o lwrecv lwrecv.o LightwaveRF.o $(LDFLAGS) $(LDLIBS)
-
-lwsend: lwsend.o LightwaveRF.o
-	$(CC) -o lwsend lwsend.o LightwaveRF.o $(LDFLAGS) $(LDLIBS)
-
-lwrecv.o: LightwaveRF.h
-	$(CC) $(CFLAGS) -c ./examples/lwrecv.cpp
-
-lwsend.o: LightwaveRF.h
-	$(CC) $(CFLAGS) -c ./examples/lwsend.cpp
-
-LightwaveRF.o: LightwaveRF.h
-	$(CC) $(CFLAGS) -c LightwaveRF.cpp
+all: lwtx lwrx
 
 clean:
 	-rm -f *.o
+
+lwrx: lwrx.o LightwaveRX.o
+	$(CC) -o lwrx lwrx.o LightwaveRX.o $(LDFLAGS) $(LDLIBS)
+
+lwtx: lwtx.o LightwaveTX.o
+	$(CC) -o lwtx lwtx.o LightwaveTX.o $(LDFLAGS) $(LDLIBS)
+
+lwrx.o: LightwaveRX.h
+	$(CC) $(CFLAGS) -c lwrx.cpp
+
+lwtx.o: LightwaveTX.h
+	$(CC) $(CFLAGS) -c lwtx.cpp
+
+LightwaveRX.o: LightwaveRX.cpp LightwaveRX.h
+	$(CC) $(CFLAGS) -c LightwaveRX.cpp
+
+LightwaveTX.o: LightwaveTX.cpp LightwaveTX.h
+	$(CC) $(CFLAGS) -c LightwaveTX.cpp

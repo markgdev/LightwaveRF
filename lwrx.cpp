@@ -1,30 +1,30 @@
 #include <stdio.h>
 #include <wiringPi.h>
-#include "LightwaveRF.h"
+#include "LightwaveRX.h"
 
 void loop();
 void printMsg(uint8_t *msg, uint8_t len);
 
-int main(void) {
-    printf("lwrecv starting\n");
+int main(int argc, char const *argv[])
+{
+    printf("lwrx starting\n");
     wiringPiSetup();
-    lightwaverf_setup(2, 2);
-    //lw_rx_setup(2, 0);
+    lwrx_setup(2, 2);
 
     while (1) {
         loop();
     }
+
+    return 0;
 }
 
 void loop() {
     uint8_t msg[10];
     uint8_t len = 10;
 
-    //if (lw_have_message())
-    if (lightwaverf_gotMessage())
+    if (lwrx_gotMessage())
     {
-        //lw_get_message(msg, &len);
-        bool ok = lightwaverf_getMessage(msg, &len);
+        bool ok = lwrx_getMessage(msg, len);
         if (ok) {
             printMsg(msg, len);
         } else {
