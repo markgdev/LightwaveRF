@@ -30,4 +30,6 @@ bool lwrx_gotMessage();
 
 bool lwrx_getMessage(uint8_t *buffer, uint8_t length);
 
+bool lwrx_getMessageRaw(uint8_t *buffer);
+
 #endif // LIGHTWAVERX_H

@@ -24,7 +24,7 @@ void loop() {
 
     if (lwrx_gotMessage())
     {
-        bool ok = lwrx_getMessage(msg, len);
+        bool ok = lwrx_getMessageRaw(msg);
         if (ok) {
             printMsg(msg, len);
         } else {
